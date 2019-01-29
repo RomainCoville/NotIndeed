@@ -22,12 +22,38 @@ class IndeedSpider(scrapy.Spider):
                 'company' : company,
                 'location' : location
             }
-        
-        for stats in response.css("#SALARY_rbo").css('a'):
-            salary = item.css("::attr(title)").extract()
+
+        for salaries in response.css("#SALARY_rbo").css('a'):
+            salary = salaries.css("::attr(title)").extract()
             yield {
                 'salary' : salary
             }
+
+        for jobs in response.css("#JOB_TYPE_rbo").css('a'):
+            jobtype = jobs.css("::attr(title)").extract()
+            yield {
+                'jobtype' : jobtype
+            }
+
+        for locations in response.css("#LOCATION_rbo").css('a'):
+            location = locations.css("::attr(title)").extract()
+            yield {
+                'location' : location
+            }
+
+        for companies in response.css("#COMPANY_rbo").css('a'):
+            company = companies.css("::attr(title)").extract()
+            yield {
+                'company' : company
+            }
+
+        for titles in response.css("#TITLE_rbo").css('a'):
+            title = titles.css("::attr(title)").extract()
+            yield {
+                'title' : title
+            }
+
+        
 
     # def clean_spaces(self, string):
     #     if string:
