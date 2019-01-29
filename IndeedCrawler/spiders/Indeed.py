@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
+from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem
 
 class IndeedSpider(scrapy.Spider):
     name = 'Indeed'
@@ -27,11 +28,11 @@ class IndeedSpider(scrapy.Spider):
             title = (job.css(".jobtitle").css("::text").extract())
             company = (job.css(".company").css("::text").extract())
             location = (job.css(".location").css("::text").extract())
-            yield {
-                'title' : title,
-                'company' : company,
-                'location' : location
-            }
+            yield JobCardItem(
+                title = title,
+                company = company,
+                location = location
+            )
 
 
 class sideDataSpider(scrapy.Spider):
@@ -40,35 +41,31 @@ class sideDataSpider(scrapy.Spider):
     start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
 
     def parse(self,response):
-        for salaries in response.css("#SALARY_rbo").css('a'):
-            salary = salaries.css("::attr(title)").extract()
-            yield {
-                'salary' : salary
-            }
+        salaries = response.css("#SALARY_rbo").css('a').css("::attr(title)").extract()
+        jobtypes = response.css("#JOB_TYPE_rbo").css('a').css("::attr(title)").extract()
+        locations = response.css("#LOCATION_rbo").css('a').css("::attr(title)").extract()
+        companies = response.css("#COMPANY_rbo").css('a').css("::attr(title)").extract()
+        titles = response.css("#TITLE_rbo").css('a').css("::attr(title)").extract()
 
-        for jobs in response.css("#JOB_TYPE_rbo").css('a'):
-            jobtype = jobs.css("::attr(title)").extract()
-            yield {
-                'jobtype' : jobtype
-            }
+        yield SalariesItem(
+            salaries = salaries
+        )
 
-        for locations in response.css("#LOCATION_rbo").css('a'):
-            location = locations.css("::attr(title)").extract()
-            yield {
-                'location' : location
-            }
+        yield JobTypesItem(
+            jobtypes = jobtypes
+        )
 
-        for companies in response.css("#COMPANY_rbo").css('a'):
-            company = companies.css("::attr(title)").extract()
-            yield {
-                'company' : company
-            }
+        yield LocationsItem(
+            locations = locations
+        )
 
-        for titles in response.css("#TITLE_rbo").css('a'):
-            title = titles.css("::attr(title)").extract()
-            yield {
-                'title' : title
-            }
+        yield CompaniesItem(
+            companies = companies
+        )
+
+        yield TitlesItem(
+            titles = titles
+        )
 
 
 
