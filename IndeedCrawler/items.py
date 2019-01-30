@@ -22,6 +22,7 @@ class SalariesItem(scrapy.Item):
     # name = scrapy.Field()
 
     salaries = scrapy.Field()
+    salariescount = scrapy.Field()
     pass
 
 class JobTypesItem(scrapy.Item):
@@ -29,6 +30,7 @@ class JobTypesItem(scrapy.Item):
     # name = scrapy.Field()
 
     jobtypes = scrapy.Field()
+    jobtypescount = scrapy.Field()
     pass
 
 class LocationsItem(scrapy.Item):
@@ -36,6 +38,7 @@ class LocationsItem(scrapy.Item):
     # name = scrapy.Field()
 
     locations = scrapy.Field()
+    locationscount = scrapy.Field()
     pass
 
 class CompaniesItem(scrapy.Item):
@@ -43,6 +46,7 @@ class CompaniesItem(scrapy.Item):
     # name = scrapy.Field()
 
     companies = scrapy.Field()
+    companiescount = scrapy.Field()
     pass
 
 class TitlesItem(scrapy.Item):
@@ -50,4 +54,5 @@ class TitlesItem(scrapy.Item):
     # name = scrapy.Field()
 
     titles = scrapy.Field()
+    titlescount = scrapy.Field()
     pass

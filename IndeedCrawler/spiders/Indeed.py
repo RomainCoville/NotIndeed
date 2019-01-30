@@ -2,6 +2,7 @@
 import scrapy
 from scrapy import Request
 from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem
+import re
 
 class IndeedSpider(scrapy.Spider):
     name = 'Indeed'
@@ -9,6 +10,7 @@ class IndeedSpider(scrapy.Spider):
     start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
 
     def parse(self, response):
+
         i = 0
         all_links = []
         for i in range(10):
@@ -41,6 +43,24 @@ class sideDataSpider(scrapy.Spider):
     start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
 
     def parse(self,response):
+
+        def getCategories(category):
+            countRegex = "(.*)\s\(\d+\)$"
+            categoriescount = []
+            print(category)
+            for i in range(len(category)):
+                categoriescount.append(re.findall(countRegex, category[i])[0])
+                categoriescount[i] = categoriescount[i].replace(u'\xa0', u' ')
+            return categoriescount
+
+        def getCount(category):
+            countRegex = "(\d+)\)$"
+            categoriescount = []
+            print(category)
+            for i in range(len(category)):
+                categoriescount.append(re.findall(countRegex, category[i])[0])
+            return categoriescount
+
         salaries = response.css("#SALARY_rbo").css('a').css("::attr(title)").extract()
         jobtypes = response.css("#JOB_TYPE_rbo").css('a').css("::attr(title)").extract()
         locations = response.css("#LOCATION_rbo").css('a').css("::attr(title)").extract()
@@ -48,26 +68,29 @@ class sideDataSpider(scrapy.Spider):
         titles = response.css("#TITLE_rbo").css('a').css("::attr(title)").extract()
 
         yield SalariesItem(
-            salaries = salaries
+            salaries = getCategories(salaries),
+            salariescount= getCount(salaries)
         )
 
         yield JobTypesItem(
-            jobtypes = jobtypes
+            jobtypes = getCategories(jobtypes),
+            jobtypescount = getCount(jobtypes)
         )
 
         yield LocationsItem(
-            locations = locations
+            locations = getCategories(locations),
+            locationscount = getCount(locations)
         )
 
         yield CompaniesItem(
-            companies = companies
+            companies = getCategories(companies),
+            companiescount = getCount(companies)
         )
 
         yield TitlesItem(
-            titles = titles
+            titles = getCategories(titles),
+            titlescount = getCount(titles)
         )
-
-
 
     # def clean_spaces(self, string):
     #     if string:
