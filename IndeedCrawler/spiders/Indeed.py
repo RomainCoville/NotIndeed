@@ -5,7 +5,7 @@ from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, Comp
 import re
 
 class IndeedSpider(scrapy.Spider):
-    name = 'Indeed'
+    name = 'JobCards'
     allowed_domains = ['indeed.fr']
     start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
 
@@ -26,19 +26,31 @@ class IndeedSpider(scrapy.Spider):
         #     print(re.findall("\d+", item.css("::attr(title)").extract_first()))
         #     print(item.css("::attr(title)").extract())
 
+        def clean_spaces(string_):
+            if string_ is not None:
+                return " ".join(string_.split())
+
+        def cleanJobCard(descriptionList):
+            joinedData = ""
+            for data in descriptionList:
+                joinedData += data
+            return clean_spaces(joinedData)
+            
+
         for job in response.css(".jobsearch-SerpJobCard"):
             title = (job.css(".jobtitle").css("::text").extract())
             company = (job.css(".company").css("::text").extract())
             location = (job.css(".location").css("::text").extract())
             yield JobCardItem(
-                title = title,
-                company = company,
-                location = location
+                title = cleanJobCard(title),
+                company = cleanJobCard(company),
+                location = location[0]
             )
 
 
+
 class sideDataSpider(scrapy.Spider):
-    name = 'IndeedSideData'
+    name = 'SearchedJobStats'
     allowed_domains = ['indeed.fr']
     start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
 
@@ -91,7 +103,3 @@ class sideDataSpider(scrapy.Spider):
             titles = getCategories(titles),
             titlescount = getCount(titles)
         )
-
-    # def clean_spaces(self, string):
-    #     if string:
-    #         return string.split()
