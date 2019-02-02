@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask
-from flask_pymongo import PyMongo
+#from flask_pymongo import PyMongo
 from flask import render_template
 app = Flask(__name__)
 
