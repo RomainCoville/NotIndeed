@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+    <link href="{{ url_for('static', filename='mon_style.css') }}" rel="stylesheet" type="text/css" />
+
+
+    <head>
+
+        <title>Indeed not Indeed</title>
+    
+    </head>
+    
+    <body>
+
+        <h2>Indeed not Indeed</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% from "_formhelpers.html" import render_field %}
+        <form method=post>
+            <div>
+                {{ render_field(form.search) }}
+            </div>
+            <p><input type=submit value=Search>
+        </form>
+
+    </body>
+
+</html>
