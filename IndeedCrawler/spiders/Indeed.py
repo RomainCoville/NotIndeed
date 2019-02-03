@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem, StatsItem
+from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem, StatsItem, JobCards
 import re
 
 class IndeedSpider(scrapy.Spider):
-    name = 'JobCards'
+    name = 'Job'
     allowed_domains = ['indeed.fr']
 
     def __init__(self, query='', **kwargs):
@@ -14,56 +14,6 @@ class IndeedSpider(scrapy.Spider):
         super().__init__(**kwargs) 
 
     def parse(self, response):
-
-        i = 0
-        all_links = []
-        for i in range(10):
-            j = i*10
-            all_links.append(str(response).split(" ")[1][:-1] + str(j))
-
-        for link in all_links :
-            yield Request(link, callback=self.parse_category)
-
-    def parse_category(self, response):
-
-        # for item in response.css("#SALARY_rbo").css('a'):
-        #     print(re.findall("\d+", item.css("::attr(title)").extract_first()))
-        #     print(item.css("::attr(title)").extract())
-
-        def clean_spaces(string_):
-            if string_ is not None:
-                return " ".join(string_.split())
-
-        def cleanJobCard(descriptionList):
-            joinedData = ""
-            for data in descriptionList:
-                joinedData += data
-            return clean_spaces(joinedData)
-            
-
-        for job in response.css(".jobsearch-SerpJobCard"):
-            title = (job.css(".jobtitle").css("::text").extract())
-            company = (job.css(".company").css("::text").extract())
-            location = (job.css(".location").css("::text").extract())
-            yield JobCardItem(
-                title = cleanJobCard(title),
-                company = cleanJobCard(company),
-                location = location[0]
-            )
-
-
-
-class sideDataSpider(scrapy.Spider):
-
-    name = 'SearchedJobStats'
-    allowed_domains = ['indeed.fr']
-
-    def __init__(self, query='', **kwargs):
-        self.start_urls = [f'https://www.indeed.fr/jobs?q={query}&start='] 
-        self.query = query
-        super().__init__(**kwargs)  
-
-    def parse(self,response):
 
         def getCategories(category):
             countRegex = "(.*)\s\(\d+\)$"
@@ -93,7 +43,7 @@ class sideDataSpider(scrapy.Spider):
             salariescount= getCount(salaries)
         )
 
-        JobTypeItem = JobTypesItem(
+        jobTypeItem = JobTypesItem(
             jobtypes = getCategories(jobtypes),
             jobtypescount = getCount(jobtypes)
         )
@@ -113,11 +63,71 @@ class sideDataSpider(scrapy.Spider):
             titlescount = getCount(titles)
         )
 
-        yield StatsItem(
-            _id = self.query,
+        yield StatsItem (
+            _id = "Stats_" + self.query,
             salaryItem = salaryItem,
-            JobTypeItem = JobTypeItem,
+            jobTypeItem = jobTypeItem,
             locationItem = locationItem,
             companyItem = companyItem,
             titleItem = titleItem
         )
+
+        i = 0
+        all_links = []
+        for i in range(10):
+            j = i*10
+            all_links.append(str(response).split(" ")[1][:-1] + str(j))
+
+        for link in all_links :
+            yield Request(link, callback=self.parse_category)
+
+    def parse_category(self, response):
+
+        # for item in response.css("#SALARY_rbo").css('a'):
+        #     print(re.findall("\d+", item.css("::attr(title)").extract_first()))
+        #     print(item.css("::attr(title)").extract())
+
+        def clean_spaces(string_):
+            if string_ is not None:
+                return " ".join(string_.split())
+
+        def cleanJobCard(descriptionList):
+            joinedData = ""
+            for data in descriptionList:
+                joinedData += data
+            return clean_spaces(joinedData)
+            
+
+        jobCardsList = []
+        for job in response.css(".jobsearch-SerpJobCard"):
+            title = (job.css(".jobtitle").css("::text").extract())
+            company = (job.css(".company").css("::text").extract())
+            location = (job.css(".location").css("::text").extract())
+            jobCardsList.append(JobCardItem(
+                title = cleanJobCard(title),
+                company = cleanJobCard(company),
+                location = location[0]
+            ))
+
+        spiderNumberRegex = "start=(\d)"
+        spiderNumber = re.findall(spiderNumberRegex,str(response))[0]
+
+        yield JobCards (
+            _id = "JobCards_" + self.query + "_" + spiderNumber,
+            jobCardsList = jobCardsList
+        )
+
+
+# class sideDataSpider(scrapy.Spider):
+
+#     name = 'SearchedJobStats'
+#     allowed_domains = ['indeed.fr']
+
+#     def __init__(self, query='', **kwargs):
+#         self.start_urls = [f'https://www.indeed.fr/jobs?q={query}&start='] 
+#         self.query = query
+#         super().__init__(**kwargs)  
+
+#     def parse(self,response):
+
+        
