@@ -1,5 +1,8 @@
-FROM python:3.4-alpine
-ADD . /code
+FROM python:3.6
+
+RUN mkdir /code
 WORKDIR /code
-RUN pip install -r requirements.txt
-CMD ["python", "miaou.py"]
+
+COPY . .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
