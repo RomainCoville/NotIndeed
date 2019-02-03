@@ -7,31 +7,26 @@
 
     <head>
 
-        <title>Indeed not Indeed</title>
-    
+        <meta charset="utf-8" />
+
+        <title>{{ titre }}</title>
+
     </head>
-    
+
+
     <body>
 
-        <h2>Indeed not Indeed</h2>
+        <h1>{{ titre }}</h1>
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <ul>
 
-        {% from "_formhelpers.html" import render_field %}
-        <form method=post>
-            <div>
-                {{ render_field(form.search) }}
-            </div>
-            <p><input type=submit value=Search>
-        </form>
+        {% for mot in mots %}
+
+            <li>{{ mot }}</li>
+
+        {% endfor %}
+
+        </ul>
 
     </body>
 

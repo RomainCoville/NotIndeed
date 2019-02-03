@@ -6,8 +6,6 @@
 # https://doc.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-
-
 class JobCardItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
@@ -56,6 +54,8 @@ class TitlesItem(scrapy.Item):
     titles = scrapy.Field()
     titlescount = scrapy.Field()
     pass
+<<<<<<< HEAD
+=======
 
 class JobCards(scrapy.Item):
     # define the fields for your item here like:
@@ -76,3 +76,7 @@ class StatsItem(scrapy.Item):
     companyItem = scrapy.Field()
     titleItem = scrapy.Field()
     pass
+<<<<<<< HEAD
+=======
+>>>>>>> c14121d5d5807c8a42ddac6d1bc914481837a2ee
+>>>>>>> 605e90ecf1e127f00f0cc9b5179910eb40acf39e

@@ -1,6 +1,3 @@
-body, html {
-    margin : auto;
-    width:1000px;
-    text-align:center;
+h1 {
+    color: red;
 }
-

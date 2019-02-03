@@ -8,7 +8,6 @@
 
 
 import pymongo
-
 from scrapy.conf import settings
 
 class MongoPipeline(object):
