@@ -22,16 +22,17 @@ def accueil():
 @app.route('/results')
 def search_results(search):
     results = []
-    search_string = search.data['search']
+    search_string = '^JobCards_' + search.data['search']
 
-    results = mongo.db.SearchedJobStats.find_one({"_id":search_string})
+    allJobCards = mongo.db.Job.find_one({"_id":{'$regex' : search_string}})
 
-    if not results:
+    if not allJobCards or not search.data['search']:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
-        return render_template('results.html', results=results)
+        jobcards = allJobCards["jobCardsList"]
+        return render_template('results.html', form = search, jobcards=jobcards)
 
 @app.route('/date')
 def date():

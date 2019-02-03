@@ -13,14 +13,32 @@
     
     <body>
 
-        <h2>Indeed not Indeed</h2>
+        <div id=main>
+            <h2>Indeed not Indeed</h2>
 
-        
-
-        <div>
-            <ul>
-                <li>{{ results }}</li>
-            </ul>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+    
+            {% from "_formhelpers.html" import render_field %}
+            <form method=post>
+                <div>
+                    {{ render_field(form.search) }}
+                </div>
+                <p><input type=submit value=Search>
+            </form>
+    
+            <div id ="results">
+                {% for jobcard in jobcards %}
+                    <div class="jobCards">{{ jobcard }}</div>
+                {% endfor %}
+            </div>
         </div>
 
     </body>
