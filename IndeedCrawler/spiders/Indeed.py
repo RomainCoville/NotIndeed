@@ -116,18 +116,5 @@ class IndeedSpider(scrapy.Spider):
             _id = "JobCards_" + self.query + "_" + spiderNumber,
             jobCardsList = jobCardsList
         )
-
-
-# class sideDataSpider(scrapy.Spider):
-
-#     name = 'SearchedJobStats'
-#     allowed_domains = ['indeed.fr']
-
-#     def __init__(self, query='', **kwargs):
-#         self.start_urls = [f'https://www.indeed.fr/jobs?q={query}&start='] 
-#         self.query = query
-#         super().__init__(**kwargs)  
-
-#     def parse(self,response):
-
+        
         
