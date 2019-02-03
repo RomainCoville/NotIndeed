@@ -57,13 +57,21 @@ class TitlesItem(scrapy.Item):
     titlescount = scrapy.Field()
     pass
 
+class JobCards(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    
+    _id = scrapy.Field()
+    jobCardsList = scrapy.Field()
+    pass
+
 class StatsItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
     _id = scrapy.Field()
     salaryItem = scrapy.Field()
-    JobTypeItem = scrapy.Field()
+    jobTypeItem = scrapy.Field()
     locationItem = scrapy.Field()
     companyItem = scrapy.Field()
     titleItem = scrapy.Field()
