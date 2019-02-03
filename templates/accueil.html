@@ -9,24 +9,32 @@
 
         <meta charset="utf-8" />
 
-        <title>{{ titre }}</title>
+        <title>Indeed not Indeed</title>
 
     </head>
 
 
     <body>
 
-        <h1>{{ titre }}</h1>
+        <h2>Indeed not Indeed</h2>
 
-        <ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 
-        {% for mot in mots %}
-
-            <li>{{ mot }}</li>
-
-        {% endfor %}
-
-        </ul>
+        {% from "_formhelpers.html" import render_field %}
+        <form method=post>
+            <div>
+                {{ render_field(form.search) }}
+            </div>
+            <p><input type=submit value=Search>
+        </form>
 
     </body>
 

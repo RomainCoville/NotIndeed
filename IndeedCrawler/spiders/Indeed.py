@@ -5,7 +5,7 @@ from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, Comp
 import re
 
 class IndeedSpider(scrapy.Spider):
-    name = 'JobCards'
+    name = 'Job'
     allowed_domains = ['indeed.fr']
 
     def __init__(self, query='', **kwargs):
