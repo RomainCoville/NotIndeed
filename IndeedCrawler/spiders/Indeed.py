@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem
+from ..items import JobCardItem, SalariesItem, JobTypesItem, LocationsItem, CompaniesItem, TitlesItem, StatsItem
 import re
 
 class IndeedSpider(scrapy.Spider):
     name = 'JobCards'
     allowed_domains = ['indeed.fr']
-    start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
+
+    def __init__(self, query='', **kwargs):
+        self.start_urls = [f'https://www.indeed.fr/jobs?q={query}&start='] 
+        self.query = query
+        super().__init__(**kwargs) 
 
     def parse(self, response):
 
@@ -50,9 +54,14 @@ class IndeedSpider(scrapy.Spider):
 
 
 class sideDataSpider(scrapy.Spider):
+
     name = 'SearchedJobStats'
     allowed_domains = ['indeed.fr']
-    start_urls = ['https://www.indeed.fr/jobs?q=data+scientist&start=','https://www.indeed.fr/jobs?q=data+analyst&start=','https://www.indeed.fr/jobs?q=data+engineer&start=']
+
+    def __init__(self, query='', **kwargs):
+        self.start_urls = [f'https://www.indeed.fr/jobs?q={query}&start='] 
+        self.query = query
+        super().__init__(**kwargs)  
 
     def parse(self,response):
 
@@ -79,27 +88,36 @@ class sideDataSpider(scrapy.Spider):
         companies = response.css("#COMPANY_rbo").css('a').css("::attr(title)").extract()
         titles = response.css("#TITLE_rbo").css('a').css("::attr(title)").extract()
 
-        yield SalariesItem(
+        salaryItem =  SalariesItem(
             salaries = getCategories(salaries),
             salariescount= getCount(salaries)
         )
 
-        yield JobTypesItem(
+        JobTypeItem = JobTypesItem(
             jobtypes = getCategories(jobtypes),
             jobtypescount = getCount(jobtypes)
         )
 
-        yield LocationsItem(
+        locationItem = LocationsItem(
             locations = getCategories(locations),
             locationscount = getCount(locations)
         )
 
-        yield CompaniesItem(
+        companyItem = CompaniesItem(
             companies = getCategories(companies),
             companiescount = getCount(companies)
         )
 
-        yield TitlesItem(
+        titleItem = TitlesItem(
             titles = getCategories(titles),
             titlescount = getCount(titles)
+        )
+
+        yield StatsItem(
+            _id = self.query,
+            salaryItem = salaryItem,
+            JobTypeItem = JobTypeItem,
+            locationItem = locationItem,
+            companyItem = companyItem,
+            titleItem = titleItem
         )
