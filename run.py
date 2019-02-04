@@ -24,15 +24,17 @@ def search_results(search):
     results = []
     search_string = '^JobCards_' + search.data['search']
 
-    allJobCards = mongo.db.Job.find_one({"_id":{'$regex' : search_string}})
+    jobCards = mongo.db.Job.find({"_id":{'$regex' : search_string}})
+    alljobcards = []
+    for jobCard in jobCards:
+        alljobcards+=jobCard["jobCardsList"]
 
-    if not allJobCards or not search.data['search']:
+    if not jobCards or not search.data['search']:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
-        jobcards = allJobCards["jobCardsList"]
-        return render_template('results.html', form = search, jobcards=jobcards)
+        return render_template('results.html', form = search, jobcards=alljobcards)
 
 if __name__ == '__main__':
     app.run("0.0.0.0",debug=True)
