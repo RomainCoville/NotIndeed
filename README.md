@@ -7,6 +7,7 @@ Ce projet a été dévloppé durant l'unité DSIA-4203C à ESIEE Paris. Celui-ci
     1.1 [Prérequis](#prérequis)  
     1.2 [Installation et démarrage](#installation-et-démarrage)  
     1.3 [L'application ne marche pas ?](#lapplication-ne-marche-pas-)
+    1.4 [Remplir la base de données](#remplir-la-base-de-données)
 2. [Technologies utilisées](#technologies-utilisées)
 3. [Guide utilisateur](#guide-utilisateur)  
     3.1 [Page d'accueil](#page-daccueil)  
@@ -61,6 +62,22 @@ docker-compose logs -f --tail=20 <service_name>
 
 Vous pouvez ainsi remplacer *<service_name>* par $web$, ou $mongo$, vous pourrez ainsi voir où se trouve l'erreur qui sera alors facile à régler.
 
+### Remplir la base de données
+
+Lorsque vous mettez la main sur l'application, il n'y a pas beaucoup de données en base de données. Afin de tester l'application vous pouvez taper dans la barre de recherche *data* afin d'avoir un exemple de ce que peux afficher l'application.
+
+Afin de remplir la base de données il va vous falloir utiliser le scrapper qui a été créé pour cela. Il vous faut donc exécuter la commande suivante  : 
+```
+scrapy crawl Job -a query=<nomDuJob>
+```
+
+Remplacer *nomDuJob* par le métier qui vous intéresse et exécuter la commande.
+    
+Lorsque la ligne suivante s'affiche : 
+```
+[scrapy.core.engine] INFO: Spider closed (finished)
+```
+C'est que le crawler a finit de récupérer les données et que vous pouvez retourner sur l'application à la recherche des informations qui vous intéressaient.
 
 ## Technologies utilisées
 
@@ -79,4 +96,4 @@ Après avoir effectué une recherche vous pouvez avoir de résultats possible :
 1) Une page de résultats comprennant deux  graphiques représentants la répartition du nombre d'offre en fonction du salaire associé et la répartition du nombre d'offre par rapport au type d'emploi associé (stage, CDI, ...) ainsi que des cartes représentant les intitulés, les entreprises et le lieu des offres publiés sur les 10 premières pages d'Indeed.
 2)Une page *No results found!*. Celle-ci s'affiche si votre recherche est incorrect ou vide. Afin d'éviter cela deux choix s'offrent à vous :
     - Faites une recherche avec un job valide dans la barre de recherche (essayez avec *data* par exemple).
-    - Si  votre recheche n'aboutit pas c'est que le métier rechercher n'est tout simplement pas encore présent dans la base de donnée, il vous faut alors la peuplée en utilisant le scapper. Pour cela nous vous conseillons de revenir plus haut dans les explications afin de comprendre comment faire.
+    - Si  votre recheche n'aboutit pas c'est que le métier rechercher n'est tout simplement pas encore présent dans la base de donnée, il vous faut alors la peuplée en utilisant le scapper. Pour cela nous vous conseillons de revenir plus haut dans les explications afin de comprendre comment faire, [lien](#remplir-la-base-de-données).
