@@ -2,7 +2,7 @@
 
 <html>
 
-    <link href="{{ url_for('static', filename='mon_style2.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='mon_style.css') }}" rel="stylesheet" type="text/css" />
 
 
     <head>
@@ -14,27 +14,40 @@
     <body>
 
         <div id=main>
-            <h2>Indeed not Indeed</h2>
+            <div id="Title">Indeed not Indeed</div>
 
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <ul class=flashes>
+                    <div class=flashes>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                      {{ message }}
                     {% endfor %}
-                    </ul>
+                  </div>
                 {% endif %}
             {% endwith %}
 
             {% from "_formhelpers.html" import render_field %}
             <form method=post>
                 <div>
-                    {{ render_field(form.search) }}
+                    {{ form.search(class_="miaou") }}
                 </div>
                 <p><input type=submit value=Search>
             </form>
-
-            <div id ="results">
+            <br>
+            <div class=resultsTitle>
+              Statistiques sur le job en question
+            </div>
+            <div class ="results">
+              <div id="graph" class="chart">
+              </div>
+              <div id="graph2" class="chart">
+              </div>
+            </div>
+            <br><br>
+            <div class=resultsTitle>
+              Jobs en rapport avec la recherche
+            </div>
+            <div class ="results">
                 {% for jobcard in jobcards %}
                     <div class="jobCards">
                         <span>{{ jobcard.title }}</span>
@@ -44,6 +57,20 @@
                 {% endfor %}
             </div>
         </div>
-    </body>
+    </body>`
+      <!-- D3.js -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <!-- Plotly.js -->
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+      <script type="text/javascript">
+
+          var graphs = {{graphJSON | safe}};
+          var graphs2 = {{graphJSON2 | safe}};
+
+          Plotly.plot('graph',graphs,{});
+          Plotly.plot('graph2',graphs2,{});
+
+      </script>`
 </html>
