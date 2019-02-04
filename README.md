@@ -6,7 +6,7 @@ Ce projet a été dévloppé durant l'unité DSIA-4203C à ESIEE Paris. Celui-ci
 1. [Débutons](#débutons)  
     1.1 [Prérequis](#prérequis)  
     1.2 [Installation et démarrage](#installation-et-démarrage)  
-    1.3 [L'application ne marche pas ?](#l'application-ne-marche-pas-)
+    1.3 [L'application ne marche pas ?](#l-'application-ne-marche-pas-)
     1.4 [Technologies utilisées](#technologies-utilisées)
 2. [Guide utilisateur](#guide-utilisateur)  
     2.1 [Page d'accueil](#page-d'accueil)  
