@@ -21,7 +21,7 @@ Suivez ces instructions afin de copier une version fonctionnelle du projet sur v
 
 ### Prérequis
 
-Tout d'abord, avant de vous lancer, vous aurez besoin d'installer docker sur votre machine. Suivez donc le lien [suivant] (https://docs.docker.com/install/) afin de procéder à l'installation.
+Tout d'abord, avant de vous lancer, vous aurez besoin d'installer docker sur votre machine. Suivez donc le lien [suivant](https://docs.docker.com/install/) afin de procéder à l'installation.
 Vous aurez également besoin de télécharger sur votre machine le modul scapy de python avec la ligne de commande suivante : 
 ```bash
 $ pip install scrapy
