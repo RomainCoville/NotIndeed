@@ -25,32 +25,6 @@ def accueil():
     else:
         return render_template('accueil.html',form=search)
 
-# @app.route('/graph')
-# def line():
-#     count = 500
-#     xScale = np.linspace(0, 100, count)
-#     yScale = np.random.randn(count)
-#
-#     # Create a trace
-#     trace = go.Scatter(
-#         x = xScale,
-#         y = yScale
-#     )
-#
-#     data = [trace]
-#     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-#     return render_template('data.html',
-#                                graphJSON=graphJSON)
-
-@app.route('/graph')
-def line():
-    data = [go.Bar(
-            x=["25 000 €", "35 000 €", "40 000 €", "45 000 €", "50 000 €"],
-            y=["14323", "10139", "6788", "3959", "2274"]
-    )]
-    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('data.html', graphJSON=graphJSON)
-
 @app.route('/results')
 def search_results(search):
     results = []
