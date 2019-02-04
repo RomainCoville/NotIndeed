@@ -36,11 +36,14 @@
 
             <div id ="results">
                 {% for jobcard in jobcards %}
-                    <div class="jobCards">{{ jobcard }}</div>
+                    <div class="jobCards">
+                        <span>{{ jobcard.title }}</span>
+                        <span>{{ jobcard.company }}</span>
+                        <span>{{ jobcard.location }}</span>
+                    </div>
                 {% endfor %}
             </div>
         </div>
-
     </body>
 
 </html>

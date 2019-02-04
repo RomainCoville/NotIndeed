@@ -9,7 +9,7 @@ services:
     volumes:
      - .:/code
     command:
-      python miaou.py
+      python run.py
 
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.0
