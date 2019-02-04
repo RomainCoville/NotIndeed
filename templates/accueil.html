@@ -2,7 +2,7 @@
 
 <html>
 
-    <link href="{{ url_for('static', filename='mon_style2.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='mon_style.css') }}" rel="stylesheet" type="text/css" />
 
 
     <head>
@@ -16,22 +16,22 @@
 
     <body>
         <div id=main>
-            <h2>Indeed not Indeed</h2>
+            <h1>Indeed not Indeed</h1>
 
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <ul class=flashes>
+                    <div class=flashes>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                        {{ message }}
                     {% endfor %}
-                    </ul>
+                  </div>
                 {% endif %}
             {% endwith %}
 
             {% from "_formhelpers.html" import render_field %}
             <form method=post>
                 <div>
-                    {{ render_field(form.search) }}
+                    {{ form.search }}
                 </div>
                 <p><input type=submit value=Search>
             </form>

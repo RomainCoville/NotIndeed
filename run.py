@@ -29,7 +29,7 @@ def search_results(search):
     for jobCard in jobCards:
         alljobcards+=jobCard["jobCardsList"]
 
-    if not jobCards or not search.data['search']:
+    if not alljobcards or not search.data['search']:
         flash('No results found!')
         return redirect('/')
     else:
