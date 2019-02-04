@@ -53,7 +53,7 @@ $ docker-compose up -d
 ```
 
 Une fois que l'application a fini de se construire vous pourrez utiliser l'application dans votre moteur de recherche.
-Lorsque l'exécution est finit, cliquez sur le lien suivant : [http://0.0.0.0:5000/] (http://0.0.0.0:5000/)
+Lorsque l'exécution est finit, cliquez sur le lien suivant : [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
 
 ## L'application ne marche pas ?
 
@@ -71,3 +71,57 @@ Vous pouvez ainsi remplacer *<service_name>* par $web$, ou $mongo$, vous pourrez
 * [Scrapy](https://scrapy.org/) - Utilisé afin de récupérer les données sur le site de Indeed
 * [MongoDB](https://www.mongodb.com/) - Une base de données NoSql utilisée pour stocker les données
 * [Docker](https://www.docker.com/) - Utilisé pour la facilité de déploiement de notre projet
+
+## Guide utilisateur
+
+### Page d'accueil
+La page d'accueil n'affiche que le titre de la page ainsi qu'une barre de recherche. Il faut y taper le nom du métier que vous voulez rechercher.
+
+### Page de résultat
+Après avoir effectué une recherche, il n'y a 
+
+
+
+### Search Page
+If you want to find specific reviews or users, you found the perfect page !  
+‌‌‌‌‌‌
+
+![Search Page](img/search-page.gif)
+
+### Graph Page
+Calling to the secret plot lover in you, here are a few plots to get a global view of grade distribution of reviews
+‌‌‌‌‌‌
+
+![Graph Page](img/graph-page.gif)
+
+
+## Reference guide
+
+### Crawling Ex Nihilo
+
+If you'd like to populate the database yourself, here are the commands you'll need to run:
+
+Start the container:
+```bash
+$ docker-compose up -d
+```
+Then, run each crawler individually:
+```bash
+$ docker-compose exec app scrapy crawl tripadvisor_attraction
+# Crawls names for every g_value (tripadvisor attraction id) listed in json file
+$ docker-compose exec app scrapy crawl tripadvisor_attraction_review
+# Crawls places listed in json file, using attraction names scrapes before
+$ docker-compose exec app scrapy crawl tripadvisor_user
+# Crawls all users who left a review on places scraped above (this will take a while)
+$ docker-compose exec app scrapy crawl tripadvisor_review
+# Crawls the first ten reviews of all users present in the database (this will take even longer !)
+```
+_You may want to stop crawling users at a certain point et carry on with reviews_
+
+If you want to know what g_values and d_values are, check out the comments in `tripadvisor_crawler/items.py`. If you wish to modify their starting values, you must change `tripadvisor_crawler/spiders/g_values.json` and `tripadvisor_crawler/spiders/d_values_by_attraction.json`
+
+### Why Elasticsearch ?
+
+We chose elastic for a more understanding search. With it we can adapt to grammar (for instance words with and without an 's' at the end), or even better, spelling errors ! As is demonstrated with the two page gifs where `magnifique` and `magnifike` give the same output.
+We used elasticsearch in the search page (obviously) and for the first type of graph because of its 'intelligence' while searching. Elsewhere we simply used mongo.
+
