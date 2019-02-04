@@ -94,6 +94,6 @@ La page d'accueil n'affiche que le titre de la page ainsi qu'une barre de recher
 ### Page de résultat
 Après avoir effectué une recherche vous pouvez avoir de résultats possible : 
 1) Une page de résultats comprennant deux  graphiques représentants la répartition du nombre d'offre en fonction du salaire associé et la répartition du nombre d'offre par rapport au type d'emploi associé (stage, CDI, ...) ainsi que des cartes représentant les intitulés, les entreprises et le lieu des offres publiés sur les 10 premières pages d'Indeed.
-2)Une page *No results found!*. Celle-ci s'affiche si votre recherche est incorrect ou vide. Afin d'éviter cela deux choix s'offrent à vous :
+2) Une page *No results found!*. Celle-ci s'affiche si votre recherche est incorrect ou vide. Afin d'éviter cela deux choix s'offrent à vous :
     - Faites une recherche avec un job valide dans la barre de recherche (essayez avec *data* par exemple).
     - Si  votre recheche n'aboutit pas c'est que le métier rechercher n'est tout simplement pas encore présent dans la base de donnée, il vous faut alors la peuplée en utilisant le scapper. Pour cela nous vous conseillons de revenir plus haut dans les explications afin de comprendre comment faire, [lien](#remplir-la-base-de-données).
