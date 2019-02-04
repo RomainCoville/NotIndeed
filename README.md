@@ -7,10 +7,10 @@ Ce projet a été dévloppé durant l'unité DSIA-4203C à ESIEE Paris. Celui-ci
     1.1 [Prérequis](#prérequis)  
     1.2 [Installation et démarrage](#installation-et-démarrage)  
     1.3 [L'application ne marche pas ?](#lapplication-ne-marche-pas-)
-    1.3 [L'application ne marche pas ?](#lapplication-ne-marche-pas-)
-2. [Guide utilisateur](#guide-utilisateur)  
-    2.1 [Page d'accueil](#page-daccueil)  
-    2.2 [Page de résultat](#page-de-résultat)  
+2. [Technologies utilisées](#technologies-utilisées)
+3. [Guide utilisateur](#guide-utilisateur)  
+    3.1 [Page d'accueil](#page-daccueil)  
+    3.2 [Page de résultat](#page-de-résultat)  
 
 ## Débutons 
 
@@ -62,7 +62,7 @@ docker-compose logs -f --tail=20 <service_name>
 Vous pouvez ainsi remplacer *<service_name>* par $web$, ou $mongo$, vous pourrez ainsi voir où se trouve l'erreur qui sera alors facile à régler.
 
 
-### Technologies utilisées
+## Technologies utilisées
 
 * [Flask](http://flask.pocoo.org/) - Framework python utilisé pour développer des application web
 * [Scrapy](https://scrapy.org/) - Utilisé afin de récupérer les données sur le site de Indeed
