@@ -2,15 +2,15 @@
 
 <html>
 
-    <link href="{{ url_for('static', filename='mon_style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='mon_style2.css') }}" rel="stylesheet" type="text/css" />
 
 
     <head>
 
         <title>Indeed not Indeed</title>
-    
+
     </head>
-    
+
     <body>
 
         <div id=main>
@@ -25,7 +25,7 @@
                     </ul>
                 {% endif %}
             {% endwith %}
-    
+
             {% from "_formhelpers.html" import render_field %}
             <form method=post>
                 <div>
@@ -33,7 +33,7 @@
                 </div>
                 <p><input type=submit value=Search>
             </form>
-    
+
             <div id ="results">
                 {% for jobcard in jobcards %}
                     <div class="jobCards">{{ jobcard }}</div>

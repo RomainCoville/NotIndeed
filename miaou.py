@@ -8,7 +8,7 @@ from forms import JobSearchForm
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
-app.config["MONGO_URI"] = "mongodb://localhost:27017/Indeed"
+app.config["MONGO_URI"] = "mongodb://mongo:27017/Indeed"
 mongo = PyMongo(app)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -33,12 +33,6 @@ def search_results(search):
         # display results
         jobcards = allJobCards["jobCardsList"]
         return render_template('results.html', form = search, jobcards=jobcards)
-
-@app.route('/date')
-def date():
-    d = mongo.db.SearchedJobStats.find_one({"_id":"data"})
-    return render_template('date.html', la_date=d)
-
 
 if __name__ == '__main__':
     app.run("0.0.0.0",debug=True)

@@ -14,7 +14,7 @@ class MongoPipeline(object):
 
     def open_spider(self, spider):
         self.collection_name = "%s"%spider.name
-        self.client = pymongo.MongoClient()
+        self.client = pymongo.MongoClient('mongodb://0.0.0.0:27017')
         self.db = self.client["Indeed"]
 
     def close_spider(self, spider):
