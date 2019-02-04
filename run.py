@@ -23,6 +23,18 @@ def accueil():
 def search_results(search):
     results = []
     search_string = '^JobCards_' + search.data['search']
+    stats_search_String = 'Stats_' + search.data['search']
+
+    jobStats = mongo.db.Job.find_one({"_id": stats_search_String})
+
+    salariesList = jobStats['salaryItem']['salaries']
+    salariesCount = jobStats['salaryItem']['salariescount']
+
+    jobTypesList = jobStats['jobTypeItem']['jobtypes']
+    jobTypesCount = jobStats['jobTypeItem']['jobtypescount']
+
+    locationsList = jobStats['locationItem']['locations']
+    locationsCount = jobStats['locationItem']['locationscount']
 
     jobCards = mongo.db.Job.find({"_id":{'$regex' : search_string}})
     alljobcards = []
