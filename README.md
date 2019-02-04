@@ -52,7 +52,7 @@ $ docker-compose up -d
 Une fois que l'application a fini de se construire vous pourrez utiliser l'application dans votre moteur de recherche.
 Lorsque l'exécution est finit, cliquez sur le lien suivant : [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
 
-## L'application ne marche pas ?
+### L'application ne marche pas ?
 
 Docker va vous aider à trouver le problème. Il vous faut simplement accéder aux logs du service lancé ainsi : 
 ```
@@ -62,7 +62,7 @@ docker-compose logs -f --tail=20 <service_name>
 Vous pouvez ainsi remplacer *<service_name>* par $web$, ou $mongo$, vous pourrez ainsi voir où se trouve l'erreur qui sera alors facile à régler.
 
 
-## Technologies utilisées
+### Technologies utilisées
 
 * [Flask](http://flask.pocoo.org/) - Framework python utilisé pour développer des application web
 * [Scrapy](https://scrapy.org/) - Utilisé afin de récupérer les données sur le site de Indeed
