@@ -14,7 +14,7 @@
     <body>
 
         <div id=main>
-            <h1>Indeed not Indeed</h1>
+            <div id="Title">Indeed not Indeed</div>
 
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -37,11 +37,22 @@
             <div class=resultsTitle>
               Statistiques sur le job en question
             </div>
+            <div class ="results">
+              <div class="graph">
+
+              </div>
+              <div class="graph">
+
+              </div>
+              <div class="graph">
+
+              </div>
+            </div>
             <br><br>
             <div class=resultsTitle>
               Jobs en rapport avec la recherche
             </div>
-            <div id ="results">
+            <div class ="results">
                 {% for jobcard in jobcards %}
                     <div class="jobCards">
                         <span>{{ jobcard.title }}</span>
