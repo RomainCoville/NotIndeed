@@ -8,9 +8,9 @@
     <head>
 
         <title>Indeed not Indeed</title>
-    
+
     </head>
-    
+
     <body>
 
         <div id=main>
@@ -25,7 +25,7 @@
                     </ul>
                 {% endif %}
             {% endwith %}
-    
+
             {% from "_formhelpers.html" import render_field %}
             <form method=post>
                 <div>
@@ -33,14 +33,17 @@
                 </div>
                 <p><input type=submit value=Search>
             </form>
-    
+
             <div id ="results">
                 {% for jobcard in jobcards %}
-                    <div class="jobCards">{{ jobcard }}</div>
+                    <div class="jobCards">
+                        <span>{{ jobcard.title }}</span>
+                        <span>{{ jobcard.company }}</span>
+                        <span>{{ jobcard.location }}</span>
+                    </div>
                 {% endfor %}
             </div>
         </div>
-
     </body>
 
 </html>
