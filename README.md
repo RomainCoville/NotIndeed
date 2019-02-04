@@ -1,6 +1,6 @@
 # Indeed not Indeed
 
-Ce projet a été dévloppé durant l'unité DSIA-4203C à ESIEE Paris. Celui-ci avait pour but de scrapper le site de notre choix et de stocker les données récupérés dans une base de données mongo. Il fallait ensuite mettre en place une application flask étant capable de communiquer avec cette base de données. Cette application marchera au sein d'un container créer en utilisant docker-compose.
+Ce projet a été dévloppé durant l'unité DSIA-4203C à ESIEE Paris. Celui-ci avait pour but de scrapper le site de notre choix et de stocker les données récupérés dans une base de données mongo. Il fallait ensuite mettre en place une application flask étant capable de communiquer avec cette base de données. Cette application fonctionnera au sein d'un container créé en utilisant docker-compose.
 
 ## Table des matières
 1. [Débutons](#débutons)  
@@ -20,7 +20,7 @@ Suivez ces instructions afin de copier une version fonctionnelle du projet sur v
 ### Prérequis
 
 Tout d'abord, avant de vous lancer, vous aurez besoin d'installer docker sur votre machine. Suivez donc le lien [suivant](https://docs.docker.com/install/) afin de procéder à l'installation.
-Vous aurez également besoin de télécharger sur votre machine le modul scapy de python avec la ligne de commande suivante : 
+Vous aurez également besoin de télécharger sur votre machine le module scrapy de python avec la ligne de commande suivante : 
 ```bash
 $ pip install scrapy
 ```
@@ -28,7 +28,7 @@ $ pip install scrapy
 
 ### Installation et démarrage 
 
-1) Placez-vosu dans le repérertoire où vous souhaitez travailler sur le projet.
+1) Placez-vous dans le repérertoire où vous souhaitez travailler sur le projet.
 2) Clonez le projet avec la commande suivante : 
 
 ```bash
@@ -50,8 +50,8 @@ Enfin, il  vous suffit  d'exécuter la commande suivante :
 $ docker-compose up -d
 ```
 
-Une fois que l'application a fini de se construire vous pourrez utiliser l'application dans votre moteur de recherche.
-Lorsque l'exécution est finit, cliquez sur le lien suivant : [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
+Une fois que l'application a fini de se construire vous pourrez l'utiliser dans votre moteur de recherche.
+Lorsque l'exécution est terminée, cliquez sur le lien suivant : [http://0.0.0.0:5000/](http://0.0.0.0:5000/)
 
 ### L'application ne marche pas ?
 
@@ -84,7 +84,7 @@ C'est que le crawler a finit de récupérer les données et que vous pouvez reto
 * [Flask](http://flask.pocoo.org/) - Framework python utilisé pour développer des application web
 * [Scrapy](https://scrapy.org/) - Utilisé afin de récupérer les données sur le site de Indeed
 * [MongoDB](https://www.mongodb.com/) - Une base de données NoSql utilisée pour stocker les données
-* [Docker](https://www.docker.com/) - Utilisé pour la facilité de déploiement de notre projet
+* [Docker](https://www.docker.com/) - Utilisé pour la faciliter de déploiement de notre projet
 
 ## Guide utilisateur
 
@@ -92,8 +92,8 @@ C'est que le crawler a finit de récupérer les données et que vous pouvez reto
 La page d'accueil n'affiche que le titre de la page ainsi qu'une barre de recherche. Il faut y taper le nom du métier que vous voulez rechercher.
 
 ### Page de résultat
-Après avoir effectué une recherche vous pouvez avoir de résultats possible : 
-1) Une page de résultats comprennant deux  graphiques représentants la répartition du nombre d'offre en fonction du salaire associé et la répartition du nombre d'offre par rapport au type d'emploi associé (stage, CDI, ...) ainsi que des cartes représentant les intitulés, les entreprises et le lieu des offres publiés sur les 10 premières pages d'Indeed.
-2) Une page *No results found!*. Celle-ci s'affiche si votre recherche est incorrect ou vide. Afin d'éviter cela deux choix s'offrent à vous :
+Après avoir effectué une recherche vous pouvez avoir deux résultats possibles : 
+1) Une page de résultats comprenant deux  graphiques représentant la répartition du nombre d'offres en fonction du salaire associé et la répartition du nombre d'offres par rapport au type d'emploi associé (stage, CDI, ...) ainsi que des cartes représentant les intitulés, les entreprises et le lieu des offres publiées sur les 10 premières pages d'Indeed.
+2) Une page *No results found!*. Celle-ci s'affiche si votre recherche est incorrecte ou vide. Afin d'éviter cela, deux choix s'offrent à vous :
     - Faites une recherche avec un job valide dans la barre de recherche (essayez avec *data* par exemple).
-    - Si  votre recheche n'aboutit pas c'est que le métier rechercher n'est tout simplement pas encore présent dans la base de donnée, il vous faut alors la peuplée en utilisant le scapper. Pour cela nous vous conseillons de revenir plus haut dans les explications afin de comprendre comment faire, [lien](#remplir-la-base-de-données).
+    - Si  votre recheche n'aboutit pas c'est que le métier recherché n'est tout simplement pas encore présent dans la base de donnée, il vous faut alors la peupler en utilisant le scapper. Pour cela nous vous conseillons de revenir plus haut dans les explications afin de comprendre comment faire, [lien](#remplir-la-base-de-données).
